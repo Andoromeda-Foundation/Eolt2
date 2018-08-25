@@ -27,35 +27,35 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { networks } from "./config";
-const network = networks["kylin"];
-const requiredFields = { accounts: [network] };
+import { mapActions } from 'vuex'
+import { networks } from './config'
+const network = networks['kylin']
+const requiredFields = { accounts: [network] }
 
 export default {
   data: () => ({
-    
+
   }),
   methods: {
-    ...mapActions(["initScatter"]),
-    handleScatterLoaded() {
-      const scatter = window.scatter;
-      this.initScatter(scatter);
-        this.requestId();
+    ...mapActions(['initScatter']),
+    handleScatterLoaded () {
+      const scatter = window.scatter
+      this.initScatter(scatter)
+      this.requestId()
     },
-      async requestId() {
-          await this.suggestNetworkSetting();
-          const identity = await scatter.getIdentity(requiredFields);
-          this.setIdentity(identity);
-      },
+    async requestId () {
+      await this.suggestNetworkSetting()
+      const identity = await scatter.getIdentity(requiredFields)
+      this.setIdentity(identity)
+    }
   },
-  created() {
-    document.addEventListener("scatterLoaded", scatterExtension => {
-      console.log("scatterLoaded");
-      this.handleScatterLoaded();
-    });
+  created () {
+    document.addEventListener('scatterLoaded', scatterExtension => {
+      console.log('scatterLoaded')
+      this.handleScatterLoaded()
+    })
   }
-};
+}
 </script>
 
 <style scoped>
