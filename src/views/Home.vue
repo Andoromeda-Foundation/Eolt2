@@ -208,7 +208,7 @@ export default {
                 // table_key: this.account.name,
                 limit: 1000,
                 // lower_bound: 0,
-                table: this.account.name,
+                table: "accounts"
             }).then((data) => {
                 console.log("data balance")
                 console.log(data)
