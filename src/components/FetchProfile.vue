@@ -3,7 +3,7 @@
       <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
         <ul>
             <li v-for="info in userinfos" :key="info.account">
-                {{ info.account }} Have {{ info.credits }} Chips in the pocket
+                {{ info.account }} Have {{ info }} Chips in the pocket
             </li>
         </ul>
     </div>
@@ -48,13 +48,14 @@ export default {
         .getTableRows({
           json: 'true',
           code: 'happyeosslot',
-          scope: 'happyeosslot',
-          table: 'player',
+          // scope: 'happyeosslot',
+          scope: account_name,
+          table: 'accounts',
           limit: 10,
           lower_bound: 0
         })
         .then(data => {
-          this.userinfos = data.rows
+          this.userinfos = data.rows[0]
         })
         .catch(e => {
           console.error(e)
