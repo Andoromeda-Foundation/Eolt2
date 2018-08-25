@@ -54,7 +54,6 @@ export default {
           lower_bound: 0
         })
         .then(data => {
-          console.log(data);
           this.userinfos = data.rows;
         })
         .catch(e => {
