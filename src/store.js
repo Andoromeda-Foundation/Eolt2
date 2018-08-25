@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Eos from "eosjs";
 import { networks } from "./config";
-const network = networks["eosasia"];
+const network = networks["kylin"];
 
 Vue.use(Vuex)
 

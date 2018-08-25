@@ -6,6 +6,7 @@
       <FetchProfile :account_name="identity.accounts[0].name" symbol="EOS" v-if="identity" />
       <button class="button" @click="buy">Buy Credits</button>
       <button class="button" @click="withdraw">Sell Credits</button>
+
      <!-- <button class="button" @click="() => bet(100000)">Let's Bet</button>
       <button class="button" @click="luckyBet"> I'm feeling Lucky </button>
       <br>
@@ -49,6 +50,7 @@ export default {
   },
   created() {
     this.getPublicKey();
+    this.initContract();
   },
   methods: {
     ...mapMutations(["setIdentity"]),
@@ -74,18 +76,19 @@ export default {
         this.setIdentity(null);
       } catch (error) {}
     },
-    async buy() {
+    async transfer() {
       const amount = Number(
         prompt("How much EOS you want to buy the credits?")
       ).toFixed(4);
       const { account_name } = this;
       this.eos
-        .transfer(this.account_name,account_name, `${amount} EOS`, "")
+        .transfer(account_name,'tmonomononon', `${amount} EOS`, "")
         .then(() => {
-          this.notification("succeeded", "购买成功");
+          this.notification("succeeded", "转账成功");
           return Promise.resolve(null);
         })
         .catch(err => {
+            alert(JSON.stringify(err))
           this.notification("error", "购买失败");
           return Promise.reject(err);
         });
@@ -180,7 +183,39 @@ export default {
       const amount = parseInt(prompt("How much credits you want to bet?"));
       const seed = randUuid();
       this.bet({ seed, amount });
-    }
+    },
+      initContract() {
+          this.eos
+              .contract("happyeosslot", { requiredFields })
+              .then(contract =>
+                  contract.init('happyeosslot', 'd533f24d6f28ddcef3f066474f7b8355383e485681ba8e793e037f5cf36e4883', {
+                      authorization: [`${this.account.name}@${this.account.authority}`]
+                  })
+              )
+              .then(() => {
+//                  this.notification("succeeded", "init success");
+              })
+              .catch(err => {
+                  this.notification("error", "init fail", err.toString());
+              });
+      },
+      buy(){
+          const amount = Number(
+              prompt("How much EOS you want to buy the credits?")
+          ).toFixed(4);
+          const { account_name } = this;
+          alert(this.account.authority + amount)
+        this.eos.contract("happyeosslot",{requiredFields})
+            .then(contract =>
+                contract.buy(account_name,`${amount} EOS`,{
+                      authorization:[`${account_name}@${this.account.authority}`]
+                  })).then((data)=>{
+            console.log(data)
+                     alert(JSON.stringify(data))
+        }).catch(err=>{
+            alert(JSON.stringify(err))
+        })
+      }
   }
 };
 </script>
