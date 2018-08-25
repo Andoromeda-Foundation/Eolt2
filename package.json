@@ -1,0 +1,29 @@
+{
+  "name": "slot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "deploy": "npm run build && surge --project ./dist --domain slot-hppy.surge.sh",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "eosjs": "^16.0.2",
+    "eosjs-ecc": "^4.0.3",
+    "register-service-worker": "^1.0.0",
+    "uuid": "^3.3.2",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0",
+    "@vue/cli-plugin-eslint": "^3.0.0",
+    "@vue/cli-plugin-pwa": "^3.0.0",
+    "@vue/cli-service": "^3.0.0",
+    "@vue/eslint-config-standard": "^3.0.0",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
