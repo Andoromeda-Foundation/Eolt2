@@ -1,33 +1,11 @@
 <template>
   <div id="app">
-    <!--<div id="nav" class="navbar navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <div class="navbar-brand">
-            <span>
-              <a herf="#/">
-                <img src="assets/img/logo.png"/>
-                <strong>快乐肉点</strong>
-              </a>
-            </span>
-          </div>
-          <ul class="nav navbar-nav">
-            <li role="presentation" class>
-              <router-link to="/">Home</router-link>
-            </li>
-            <li role="presentation" class>
-              <router-link to="/about">About</router-link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>-->
     <router-view/>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { networks } from './config'
 const network = networks['kylin']
 const requiredFields = { accounts: [network] }
@@ -38,6 +16,7 @@ export default {
   }),
   methods: {
     ...mapActions(['initScatter']),
+    ...mapMutations(['setIdentity']),
     handleScatterLoaded () {
       const scatter = window.scatter
       this.initScatter(scatter)
