@@ -1,6 +1,6 @@
 <template>
     <div class="balance">
-      <Chart4Token k="10" />
+      <Chart4Token :k="10" :step="10" :limits="100" />
       <button @click="getSomeData"> Get Some Data </button>
       <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
         <ul>
