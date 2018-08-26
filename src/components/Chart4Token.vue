@@ -59,28 +59,19 @@ export default {
         return r;
     },
 
-
     getPrice(x) {
         const {cw, supply, balance} = this
-
         supply += this.convert_to_exchange(x);
         balance += x;
-
         x = 0.0001;
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
-      //  alert(x);
-    //    alert(r);
-//    alert(x); alert(r);
-//      alert(x/r);
         return x / r;
     },    
-
 
     mathFns (x) {
       const { k } = this
       return (0.2 + k * x) * x / 2
     },
-
 
     gen() {
       const {k, step, limits} = this
@@ -92,9 +83,7 @@ export default {
       
       for (let x = 0; x <= 1000000; x += 10000) {
         chartData.labels.push(x);
-//        const eos = this.mathFns(x)
-        let eos = this.convert_to_exchange(x);
-        
+        let eos = this.convert_to_exchange(x);        
         data.push(eos)
       }
       return {chartData, data};
@@ -116,7 +105,6 @@ export default {
       }
       return {chartData, data};
     },
-
     
     getSomeData () {
       let {chartData, data} = this.gen ();
@@ -128,15 +116,7 @@ export default {
           backgroundColor: 'rgba(0, 0, 0, 0)',
           pointRadius: 0,
           data
-        }/*,
-
-        {
-          label: 'Price 1',
-          borderColor: 'red',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          pointRadius: 0,
-          data: data.map(p => p - 500000)
-        }*/
+        }
       ]
       this.chartData = chartData
     }
