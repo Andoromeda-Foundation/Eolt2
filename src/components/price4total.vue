@@ -34,8 +34,8 @@ export default {
   props: {
     // step: {type: Number, default: 1},
     // limits: {type: Number, default: 50},
-    step: {type: Number, default: config.step},
-    limits: {type: Number, default: config.limits},
+    //step: config.step,
+    // limits: config.step,
     k: {type: Number, required: true},
     cw: config.cw,
     supply: config.supply,
@@ -52,17 +52,24 @@ export default {
     this.getSomeData()
   },
   created(){
+    this.step = config.step;
+    this.limits = config.step;
     this.cw = config.cw;
     this.supply = config.supply;
     this.balance = config.balance;
+    this.eop= config.eop;    
   },
   methods: {
     convert_to_exchange(x) {
-        let {cw, supply, balance} = this
-        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
+
+
+        let {cw, supply, balance, eop} = this
+        x *= eop;
+        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ));
         return r;
     },
 
+/*
 
     getPrice(x) {
         let {cw, supply, balance} = this
@@ -71,10 +78,15 @@ export default {
         balance += x;
 
         x = 0.0001;
-        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
+        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw));
         return x / r;
-    },    
+    },  */
 
+    getPrice(x) {
+        let {cw, supply, balance} = this
+        supply += this.convert_to_exchange(x);
+        return (balance + x) / (supply * cw ) ;
+    },    
 
     mathFns (x) {
       const { k } = this
@@ -82,7 +94,7 @@ export default {
     },
 
 
-    gen() {
+    /*gen() {
       let {balance, step, supply} = this
       const chartData = {
         labels: []
@@ -98,20 +110,19 @@ export default {
         data.push(price);
       }
       return {chartData, data};
-    },
+    }, */
 
-    gen2() {
-      const {k, step, limits} = this
+    gen() {
+   let {balance, step, supply} = this
       const chartData = {
         labels: []
       }
       let data = []
-      const length = 1
       
-      for (let x = 0; x <= 10000000; x += 100000) {
-        chartData.labels.push(x);
-//        const eos = this.mathFns(x)
-        let price = this.getPrice(x);
+      for (let x = balance; x <= 1500; x += 1) {
+        let hpy = this.convert_to_exchange(x - balance) + supply;      
+        chartData.labels.push(hpy);
+        let price = this.getPrice(x - balance);
         data.push(price);
       }
       return {chartData, data};

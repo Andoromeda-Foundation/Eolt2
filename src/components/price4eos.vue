@@ -32,14 +32,15 @@ import config from'./config.json'
 export default {
   name: 'ChartForToken',
   props: {
-    // step: {type: Number, default: 100},
-    // limits: {type: Number, default: 2000},
-    step: {type: Number, default: config.step},
-    limits: {type: Number, default: config.limits},
+    /*
+     step: {type: Number, default: 100},
+     limits: {type: Number, default: 2000},
+ //   step: config.step,
+   // limits: config.step,
     k: {type: Number, required: true},
     cw: config.cw,
     supply: config.supply,
-    balance: config.balance   
+    balance: config.balance   */
   },
 
   components: {
@@ -52,26 +53,30 @@ export default {
     this.getSomeData();
   },
   created(){
+    this.step = config.step;
+    this.limits = config.step;
     this.cw = config.cw;
     this.supply = config.supply;
     this.balance = config.balance;
+    this.eop= config.eop;    
   },
   methods: {
     convert_to_exchange(x) {
-        const {cw, supply, balance} = this
-        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
+
+        let {cw, supply, balance, eop} = this
+        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ));
+
         return r;
     },
 
+
     getPrice(x) {
         let {cw, supply, balance} = this
-
         supply += this.convert_to_exchange(x);
         balance += x;
+        // supply * cw * price = balance
 
-        x = 0.0001;
-        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
-        return x / r;
+        return (balance) / (supply * cw ) * eop;
     },    
 
     gen() {
@@ -82,9 +87,13 @@ export default {
       let data = []
       const length = 1
       
-      for (let x = balance; x <= supply; x += step) {
+      for (let x = balance; x <= 1500; x += step) {
         chartData.labels.push(x);
-        let price = this.getPrice(x - 1000);
+//        let hpy = this.convert_to_exchange(x - balance) + supply;      
+     //   console.log(x);
+       // console.log(balance);
+        //console.log(this.convert_to_exchange(0));
+        let price = this.getPrice(x - balance);
         data.push(price);
       }
       return {chartData, data};

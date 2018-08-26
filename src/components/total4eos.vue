@@ -34,9 +34,9 @@ export default {
   props: {
     // step: {type: Number, default: 1000},
     // limits: {type: Number, default: 2000},
-    step: {type: Number, default: config.step},
-    limits: {type: Number, default: config.limits},
-    k: {type: Number, required: true},
+  //  step: {type: Number, default: config.step},
+    // limits: {type: Number, default: config.limits},
+   //  k: {type: Number, required: true},
     cw: config.cw,
     supply: config.supply,
     balance: config.balance   
@@ -52,14 +52,19 @@ export default {
     this.getSomeData()
   },
   created(){
+    this.step = config.step;
+    this.limits = config.step;
     this.cw = config.cw;
     this.supply = config.supply;
     this.balance = config.balance;
+    this.eop= config.eop;        
   },
   methods: {
     convert_to_exchange(x) {
-        let {cw, supply, balance} = this
-        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
+//        x *= eop;
+        let {cw, supply, balance, eop} = this
+        x *= eop;        
+        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ));
         return r;
     },
 
@@ -71,11 +76,10 @@ export default {
       let data = []
       const length = 1
       
-      for (let x = balance; x <= supply; x += step) {
+      for (let x = balance; x <= 1500; x += step) {
         chartData.labels.push(x);
-        let eos = this.convert_to_exchange(x - 1000);
-      
-        data.push(eos)
+        let hpy = this.convert_to_exchange(x - balance) + supply;      
+        data.push(hpy)
       }
       return {chartData, data};
     },

@@ -1,10 +1,11 @@
 {
     "step":100,
-    "limits":50,
+    "limits":2000,
     "cw":0.5,
-    "supply":2000,
-    "balance":1000,
+    "supply":1000,
+    "balance":500,
     "total":"发行量",
     "value":"价格",
-    "save":"储备金"
+    "save":"储备金",
+    "eop": 1000
 }
