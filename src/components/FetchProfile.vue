@@ -14,7 +14,7 @@
     </div>
 		<div class="room-list" v-if="nowIndex==tabsParam[0]">
 			<div class="container">
-				<price4eos :k="10" :step="10" :limits="100" />
+				<total4eos :k="10" :step="10" :limits="100" />
         <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
         <ul>
             <li v-for="info in userinfos" :key="info.account">
@@ -24,7 +24,7 @@
 			</div>
 		</div>
     <div class="room-list" v-if="nowIndex==tabsParam[1]">
-      <price4total :k="10" :step="10" :limits="100" />
+      <price4eos :k="10" :step="10" :limits="100" />
       <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
       <ul>
           <li v-for="info in userinfos" :key="info.account">
@@ -33,7 +33,7 @@
       </ul>
     </div>
     <div class="room-list" v-if="nowIndex==tabsParam[2]">
-      <total4eos :k="10" :step="10" :limits="100" />
+      <price4total :k="10" :step="10" :limits="100" />
       <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
       <ul>
           <li v-for="info in userinfos" :key="info.account">
@@ -67,8 +67,8 @@ export default {
   }),
   created () {
     this.eosClient = Eos(eosOption)
-    this.nowIndex = '表格1';
-    this.tabsParam = ['表格1','表格2','表格3'];
+    this.nowIndex = '发行量/储备金';
+    this.tabsParam = ['发行量/储备金','价格/储备金','价格/发行量'];
     this.getCurrencyBalance()
   },
 
@@ -97,7 +97,7 @@ export default {
     },
   toggleTabs: function(e){
 		this.nowIndex = e.target.innerText;
-		if (!this.tabsParam.includes(this.nowIndex)) this.nowIndex = '表格1';
+		if (!this.tabsParam.includes(this.nowIndex)) this.nowIndex = '发行量/储备金';
 		this.$forceUpdate();
 	},
   }
