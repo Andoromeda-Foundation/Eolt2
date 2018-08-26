@@ -80,7 +80,7 @@ export default {
       
       for (let x = 1000; x <= 2000; x += 10) {
         chartData.labels.push(x);
-        let price = this.getPrice(x);
+        let price = this.getPrice(x - 1000);
         data.push(price);
       }
       return {chartData, data};

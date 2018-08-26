@@ -68,7 +68,7 @@ export default {
       
       for (let x = 1000; x <= 2000; x += 100) {
         chartData.labels.push(x);
-        let eos = this.convert_to_exchange(x);
+        let eos = this.convert_to_exchange(x - 1000);
       
         data.push(eos)
       }
