@@ -50,7 +50,10 @@ export default {
   },
   methods: {
     convert_to_exchange(x) {
-        const {cw, supply, balance} = this
+  //        const {cw, supply, balance} = this
+        let cw = 0.5;
+        let supply = 1000;
+        let balance = 1000;
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
         return r;
     },
@@ -66,7 +69,7 @@ export default {
       for (let x = 1000; x <= 2000; x += 100) {
         chartData.labels.push(x);
         let eos = this.convert_to_exchange(x);
-        
+      
         data.push(eos)
       }
       return {chartData, data};

@@ -50,14 +50,17 @@ export default {
   },
   methods: {
     convert_to_exchange(x) {
-        const {cw, supply, balance} = this
+        let cw = 0.5;
+        let supply = 1000;
+        let balance = 1000;
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
         return r;
     },
 
-
     getPrice(x) {
-        const {cw, supply, balance} = this
+        let cw = 0.5;
+        let supply = 1000;
+        let balance = 1000;
 
         supply += this.convert_to_exchange(x);
         balance += x;
@@ -67,12 +70,6 @@ export default {
         return x / r;
     },    
 
-
-    mathFns (x) {
-      const { k } = this
-      return (0.2 + k * x) * x / 2
-    },
-
     gen() {
       const {k, step, limits} = this
       const chartData = {
@@ -81,7 +78,7 @@ export default {
       let data = []
       const length = 1
       
-      for (let x = 0; x <= 10000000; x += 100000) {
+      for (let x = 1000; x <= 2000; x += 10) {
         chartData.labels.push(x);
         let price = this.getPrice(x);
         data.push(price);
