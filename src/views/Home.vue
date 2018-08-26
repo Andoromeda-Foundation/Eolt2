@@ -228,6 +228,7 @@ export default {
   }
   .btn-group{
     width: 80%;
+    margin: 0 auto;
     text-align: center;
     height: 10px;
   }
