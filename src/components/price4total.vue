@@ -27,16 +27,19 @@
 
 <script>
 import LineChart from './LineChart'
+import config from'./config.json'
 
 export default {
   name: 'ChartForToken',
   props: {
-    step: {type: Number, default: 1},
-    limits: {type: Number, default: 50},
+    // step: {type: Number, default: 1},
+    // limits: {type: Number, default: 50},
+    step: {type: Number, default: config.step},
+    limits: {type: Number, default: config.limits},
     k: {type: Number, required: true},
-    cw: 0.5,
-    supply: 1000,
-    balance: 1000    
+    cw: config.cw,
+    supply: config.supply,
+    balance: config.balance   
   },
 
   components: {
