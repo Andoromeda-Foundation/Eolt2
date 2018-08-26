@@ -43,6 +43,13 @@ export default {
       this.initScatter(scatter)
       this.requestId()
     },
+    async suggestNetworkSetting () {
+      try {
+        await this.scatter.suggestNetwork(network)
+      } catch (error) {
+        console.info('User canceled to suggestNetwork')
+      }
+    },
     async requestId () {
       await this.suggestNetworkSetting()
       const identity = await scatter.getIdentity(requiredFields)
