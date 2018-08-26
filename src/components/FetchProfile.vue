@@ -1,7 +1,6 @@
 <template>
     <div class="balance">
       <Chart4Token :k="10" :step="10" :limits="100" />
-      <button @click="getSomeData"> Get Some Data </button>
       <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
         <ul>
             <li v-for="info in userinfos" :key="info.account">
@@ -34,40 +33,27 @@ export default {
   },
 
   methods: {
-    getCurrencyBalance () {
+    async getCurrencyBalance () {
       const { account_name, symbol, balance } = this
-      // 获取EOS
-      this.eosClient
-        .getCurrencyBalance({
+      try {
+        const curBal = await this.eosClient.getCurrencyBalance({
           code: 'eosio.token',
           account: account_name
         })
-        .then(
-          res => {
-            const eos = res[0]
-            this.balance = Object.assign(balance, { eos })
-          },
-          res => {
-            console.log(res)
-          }
-        )
-
-      this.eosClient
-        .getTableRows({
+        const eos = curBal[0]
+        this.balance = Object.assign(balance, { eos })
+        const {rows} = await this.eosClient.getTableRows({
           json: 'true',
           code: 'happyeosslot',
-          // scope: 'happyeosslot',
           scope: account_name,
           table: 'accounts',
           limit: 10,
           lower_bound: 0
         })
-        .then(data => {
-          this.userinfos = data.rows[0]
-        })
-        .catch(e => {
-          console.error(e)
-        })
+        this.userinfos = rows[0]
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }
