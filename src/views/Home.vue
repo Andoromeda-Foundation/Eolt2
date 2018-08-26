@@ -23,7 +23,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import { sha256 } from 'eosjs-ecc'
 import HelloWorld from '@/components/HelloWorld.vue'
 import FetchProfile from '@/components/FetchProfile.vue'
@@ -35,9 +35,6 @@ const requiredFields = { accounts: [network] }
 
 export default {
   name: 'home',
-  // data: () => ({
-  //   account_name: "happyeosslot"
-  // }),
   computed: {
     ...mapState(['identity', 'scatter', 'eos', 'account']),
     ...mapState({
@@ -53,7 +50,6 @@ export default {
     //        this.initContract();
   },
   methods: {
-    ...mapMutations(['setIdentity']),
     async suggestNetworkSetting () {
       try {
         await this.scatter.suggestNetwork(network)
@@ -63,11 +59,6 @@ export default {
     },
     notification (msg1, msg2) {
       alert(msg2)
-    },
-    async requestId () {
-      await this.suggestNetworkSetting()
-      const identity = await scatter.getIdentity(requiredFields)
-      this.setIdentity(identity)
     },
     async signOut (e) {
       try {
