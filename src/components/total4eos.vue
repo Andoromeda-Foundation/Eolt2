@@ -7,14 +7,14 @@
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: '发行量'
+							labelString: '储备金'
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'EOS'
+							labelString: '发行量'
 						}
 					}]
 				}}"
