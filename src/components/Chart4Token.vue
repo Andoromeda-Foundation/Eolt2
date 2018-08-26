@@ -35,6 +35,13 @@ export default {
     limits: {type: Number, default: 50},
     k: {type: Number, required: true}
   },
+
+  paras: {
+    cw: 0.5,
+    supply: 1000,
+    balance: 1000
+  },
+
   components: {
     LineChart
   },
@@ -48,15 +55,13 @@ export default {
 
 
     convert_to_exchange(x) {
-        let cw = 0.5;
-        let supply = 0.1;
-        let balance = 1000;
+        let cw = this.paras.cw;
+        let supply = this.supply.paras;
+        let balance = this.supply.paras;
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
-
-        //let r = Math.pow(2.0, x);
         return r;
-        // return 2*x;
 
+        // return 2*x;
         /*
         real_type R(supply.amount);
         real_type C(c.balance.amount + in.amount);
@@ -132,8 +137,6 @@ export default {
       }
       return {chartData, data};
     },
-
-
 
     
     getSomeData () {
