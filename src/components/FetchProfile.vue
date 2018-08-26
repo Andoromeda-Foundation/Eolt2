@@ -1,26 +1,44 @@
 <template>
     <div class="balance">
-      <Chart4Token :k="10" :step="10" :limits="100" />
+      <price4eos :k="10" :step="10" :limits="100" />
       <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
-        <ul>
-            <li v-for="info in userinfos" :key="info.account">
-                {{ info.account }} Have {{ info }} Chips in the pocket
-            </li>
-        </ul>
+      <ul>
+          <li v-for="info in userinfos" :key="info.account">
+              {{ info.account }} Have {{ info }} Chips in the pocket
+          </li>
+      </ul>
+      <price4total :k="10" :step="10" :limits="100" />
+      <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
+      <ul>
+          <li v-for="info in userinfos" :key="info.account">
+              {{ info.account }} Have {{ info }} Chips in the pocket
+          </li>
+      </ul>
+      <total4eos :k="10" :step="10" :limits="100" />
+      <h2 class="subtitle">Account: {{ account_name }}, Balance: {{ balance.eos }} </h2>
+      <ul>
+          <li v-for="info in userinfos" :key="info.account">
+              {{ info.account }} Have {{ info }} Chips in the pocket
+          </li>
+      </ul>
     </div>
 </template>
 
 <script>
 import Eos from 'eosjs'
 import { eosOptions } from '../config'
-import Chart4Token from './Chart4Token'
+import price4eos from './price4eos'
+import price4total from './price4total'
+import total4eos from './total4eos'
 
 const eosOption = eosOptions['kylin']
 
 export default {
   props: ['account_name', 'symbol'],
   components: {
-    Chart4Token
+    price4eos,
+    price4total,
+    total4eos
   },
   data: () => ({
     eos: null,
