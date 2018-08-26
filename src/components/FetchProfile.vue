@@ -41,6 +41,7 @@
           </li>
       </ul>
     </div>
+    <slider :min=0 :max=100 v-model = "per"></slider>
   </div>
 </template>
 
@@ -50,6 +51,8 @@ import { eosOptions } from '../config'
 import price4eos from './price4eos'
 import price4total from './price4total'
 import total4eos from './total4eos'
+import slider from './Slider'
+import config from './config.json'
 
 const eosOption = eosOptions['kylin']
 
@@ -58,12 +61,15 @@ export default {
   components: {
     price4eos,
     price4total,
-    total4eos
+    total4eos,
+    slider
   },
   data: () => ({
     eos: null,
     balance: { eos: null },
-    userinfos: []
+    userinfos: [],
+    per:0,
+    config:config
   }),
   created () {
     this.eosClient = Eos(eosOption)

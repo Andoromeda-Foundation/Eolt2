@@ -52,6 +52,7 @@ export default {
     this.getSomeData()
   },
   created(){
+    let config = this.$parent.config
     this.cw = config.cw;
     this.supply = config.supply;
     this.balance = config.balance;

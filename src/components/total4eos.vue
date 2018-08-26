@@ -27,7 +27,7 @@
 
 <script>
 import LineChart from './LineChart'
-import config from'./config.json'
+import config from './config.json'
 
 export default {
   name: 'ChartForToken',
@@ -46,12 +46,13 @@ export default {
     LineChart
   },
   data: () => ({
-    chartData: null
+    chartData: null,
   }),
   mounted () {
     this.getSomeData()
   },
   created(){
+    let config = this.$parent.config
     this.cw = config.cw;
     this.supply = config.supply;
     this.balance = config.balance;
