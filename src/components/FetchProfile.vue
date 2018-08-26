@@ -1,6 +1,7 @@
 <template>
   <div class="balance">
-      <ul class="tabs">
+    <div class="tabs">
+      <ul>
     			<li 
         			v-for="(item,index) in tabsParam" 
         			:class="{active:item == nowIndex}"
@@ -10,6 +11,7 @@
         			</a>
 				</li>
 			</ul>
+    </div>
 		<div class="room-list" v-if="nowIndex==tabsParam[0]">
 			<div class="container">
 				<price4eos :k="10" :step="10" :limits="100" />

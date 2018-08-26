@@ -19,7 +19,7 @@
 					}]
 				}}"
         :chartData="chartData" v-if="chartData"
-          :width="1280"
+          :width="960"
           :height="480"
         >
       </line-chart>
