@@ -51,7 +51,7 @@ export default {
   methods: {
     convert_to_exchange(x) {
         let cw = 0.5;
-        let supply = 1000;
+        let supply = 2000;
         let balance = 1000;
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
         return r;
@@ -59,7 +59,7 @@ export default {
 
     getPrice(x) {
         let cw = 0.5;
-        let supply = 1000;
+        let supply = 2000;
         let balance = 1000;
 
         supply += this.convert_to_exchange(x);
@@ -78,7 +78,7 @@ export default {
       let data = []
       const length = 1
       
-      for (let x = 1000; x <= 2000; x += 10) {
+      for (let x = 1000; x <= 2000; x += 100) {
         chartData.labels.push(x);
         let price = this.getPrice(x - 1000);
         data.push(price);

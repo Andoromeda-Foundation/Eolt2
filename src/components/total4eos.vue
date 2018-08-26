@@ -52,7 +52,7 @@ export default {
     convert_to_exchange(x) {
   //        const {cw, supply, balance} = this
         let cw = 0.5;
-        let supply = 1000;
+        let supply = 2000;
         let balance = 1000;
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
         return r;
