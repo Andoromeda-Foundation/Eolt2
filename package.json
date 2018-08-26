@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bulma": "^0.7.1",
     "chart.js": "^2.7.2",
     "eosjs": "^16.0.2",
     "eosjs-ecc": "^4.0.3",
