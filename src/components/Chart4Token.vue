@@ -31,7 +31,7 @@ import LineChart from './LineChart'
 export default {
   name: 'ChartForToken',
   props: {
-    step: {type: Number, default: 100},
+    step: {type: Number, default: 1},
     limits: {type: Number, default: 50},
     k: {type: Number, required: true}
   },
@@ -46,50 +46,99 @@ export default {
   },
   methods: {
 
-            convert_to_exchange(x) {
-                let cw = 0.0005;
-                let supply = 1000000000;
-                let balance = 500000000;
-                let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
 
-                //let r = Math.pow(2.0, x);
-                return r;
-                // return 2*x;
+    convert_to_exchange(x) {
+        let cw = 0.5;
+        let supply = 0.1;
+        let balance = 1000;
+        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
 
-                /*
-                real_type R(supply.amount);
-                real_type C(c.balance.amount + in.amount);
-                real_type F(c.weight / 1000.0);
-                real_type T(in.amount);
-                real_type ONE(1.0);
+        //let r = Math.pow(2.0, x);
+        return r;
+        // return 2*x;
 
-                real_type E = -R * (ONE - pow(ONE + T / C, F));
-                int64_t issued = int64_t(E);
+        /*
+        real_type R(supply.amount);
+        real_type C(c.balance.amount + in.amount);
+        real_type F(c.weight / 1000.0);
+        real_type T(in.amount);
+        real_type ONE(1.0);
 
-                supply.amount += issued;
-                c.balance.amount += in.amount;
+        real_type E = -R * (ONE - pow(ONE + T / C, F));
+        int64_t issued = int64_t(E);
 
-                return asset(issued, supply.symbol);*/
-            },
+        supply.amount += issued;
+        c.balance.amount += in.amount;
+
+        return asset(issued, supply.symbol);*/
+    },
+
+
+    getPrice(x) {
+      
+        let cw = 0.5;
+        let supply = 1000;
+        let balance = 10;
+        supply += this.convert_to_exchange(x);
+        balance += x;
+
+        x = 0.0001;
+        let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
+      //  alert(x);
+    //    alert(r);
+//    alert(x); alert(r);
+//      alert(x/r);
+        return x / r;
+    },    
 
 
     mathFns (x) {
       const { k } = this
       return (0.2 + k * x) * x / 2
     },
-    getSomeData () {
+
+
+    gen() {
       const {k, step, limits} = this
       const chartData = {
         labels: []
       }
-      const data = []
-      const length = 20
-      for (let x = 0; x <= 1000; x += step) {
+      let data = []
+      const length = 1
+      
+      for (let x = 0; x <= 1000000; x += 10000) {
         chartData.labels.push(x);
 //        const eos = this.mathFns(x)
         let eos = this.convert_to_exchange(x);
+        
         data.push(eos)
       }
+      return {chartData, data};
+    },
+
+    gen2() {
+      const {k, step, limits} = this
+      const chartData = {
+        labels: []
+      }
+      let data = []
+      const length = 1
+      
+      for (let x = 0; x <= 10000000; x += 100000) {
+        chartData.labels.push(x);
+//        const eos = this.mathFns(x)
+        let price = this.getPrice(x);
+        data.push(price);
+      }
+      return {chartData, data};
+    },
+
+
+
+    
+    getSomeData () {
+      let {chartData, data} = this.gen ();
+
       chartData.datasets = [
         {
           label: 'Price',
