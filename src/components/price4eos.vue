@@ -49,21 +49,22 @@ export default {
     chartData: null
   }),
   mounted () {
-    this.getSomeData()
+    this.getSomeData();
+  },
+  created(){
+    this.cw = config.cw;
+    this.supply = config.supply;
+    this.balance = config.balance;
   },
   methods: {
     convert_to_exchange(x) {
-        let cw = 0.5;
-        let supply = 2000;
-        let balance = 1000;
+        const {cw, supply, balance} = this
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
         return r;
     },
 
     getPrice(x) {
-        let cw = 0.5;
-        let supply = 2000;
-        let balance = 1000;
+        let {cw, supply, balance} = this
 
         supply += this.convert_to_exchange(x);
         balance += x;
@@ -74,14 +75,14 @@ export default {
     },    
 
     gen() {
-      const {k, step, limits} = this
+      let {balance, step, supply} = this
       const chartData = {
         labels: []
       }
       let data = []
       const length = 1
       
-      for (let x = 1000; x <= 2000; x += 100) {
+      for (let x = balance; x <= supply; x += step) {
         chartData.labels.push(x);
         let price = this.getPrice(x - 1000);
         data.push(price);

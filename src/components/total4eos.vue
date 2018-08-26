@@ -51,25 +51,27 @@ export default {
   mounted () {
     this.getSomeData()
   },
+  created(){
+    this.cw = config.cw;
+    this.supply = config.supply;
+    this.balance = config.balance;
+  },
   methods: {
     convert_to_exchange(x) {
-  //        const {cw, supply, balance} = this
-        let cw = 0.5;
-        let supply = 2000;
-        let balance = 1000;
+        let {cw, supply, balance} = this
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
         return r;
     },
 
     gen() {
-      const {k, step, limits} = this
+      let {balance, step, supply} = this
       const chartData = {
         labels: []
       }
       let data = []
       const length = 1
       
-      for (let x = 1000; x <= 2000; x += 100) {
+      for (let x = balance; x <= supply; x += step) {
         chartData.labels.push(x);
         let eos = this.convert_to_exchange(x - 1000);
       
