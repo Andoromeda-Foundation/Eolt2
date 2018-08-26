@@ -33,13 +33,14 @@ export default {
   props: {
     step: {type: Number, default: 1},
     limits: {type: Number, default: 50},
-    k: {type: Number, required: true}
+    k: {type: Number, required: true},
+    cw: 0.5,
+    supply: 1000,
+    balance: 1000    
   },
 
   paras: {
-    cw: 0.5,
-    supply: 1000,
-    balance: 1000
+
   },
 
   components: {
@@ -52,38 +53,16 @@ export default {
     this.getSomeData()
   },
   methods: {
-
-
     convert_to_exchange(x) {
-        let cw = this.paras.cw;
-        let supply = this.supply.paras;
-        let balance = this.supply.paras;
+        const {cw, supply, balance} = this
         let r = -supply * (1.0 - Math.pow(1 + x/(balance + x), cw ) );
         return r;
-
-        // return 2*x;
-        /*
-        real_type R(supply.amount);
-        real_type C(c.balance.amount + in.amount);
-        real_type F(c.weight / 1000.0);
-        real_type T(in.amount);
-        real_type ONE(1.0);
-
-        real_type E = -R * (ONE - pow(ONE + T / C, F));
-        int64_t issued = int64_t(E);
-
-        supply.amount += issued;
-        c.balance.amount += in.amount;
-
-        return asset(issued, supply.symbol);*/
     },
 
 
     getPrice(x) {
-      
-        let cw = 0.5;
-        let supply = 1000;
-        let balance = 10;
+        const {cw, supply, balance} = this
+
         supply += this.convert_to_exchange(x);
         balance += x;
 
