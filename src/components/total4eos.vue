@@ -14,7 +14,7 @@
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: '价格'
+							labelString: 'EOS'
 						}
 					}]
 				}}"

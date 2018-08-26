@@ -7,7 +7,7 @@
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'EOS'
+							labelString: '发行量'
 						}
 					}],
 					yAxes: [{
