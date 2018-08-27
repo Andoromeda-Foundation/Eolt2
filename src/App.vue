@@ -9,7 +9,7 @@ import { mapActions, mapMutations } from 'vuex'
 import { networks } from './config'
 const network = networks['kylin']
 const requiredFields = { accounts: [network] }
-
+import "mint-ui/lib/style.css"
 export default {
   data: () => ({
 

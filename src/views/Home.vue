@@ -1,22 +1,46 @@
 <template>
   <div class="home">
-    <img alt="logo" src="../assets/img/bg1.png" class="logo" >
-    <div class="btn-group" v-if="identity">
+<!--    <img alt="logo" src="../assets/imges/bg1.png" class="logo" >-->
+      <mt-header title="快来肉点2">
+          <router-link to="/" slot="left">
+              <mt-button icon="back">返回</mt-button>
+          </router-link>
+          <mt-button icon="more" slot="right"></mt-button>
+      </mt-header>
+      <Elot></Elot>
+     <!-- <mt-navbar v-model="selected">
+          <mt-tab-item id="1">首页</mt-tab-item>
+          <mt-tab-item id="2">游戏说明</mt-tab-item>
+          <mt-tab-item id="3">社区</mt-tab-item>
+      </mt-navbar>
+
+      &lt;!&ndash; tab-container &ndash;&gt;
+      <mt-tab-container v-model="selected">
+          <mt-tab-container-item id="1">
+          </mt-tab-container-item>
+          <mt-tab-container-item id="2">
+          </mt-tab-container-item>
+          <mt-tab-container-item id="3">
+
+          </mt-tab-container-item>
+      </mt-tab-container>-->
+  <!--  <div class="btn-group" v-if="identity">-->
     <!--  <h1 class="title"> The Happy EOS Slot </h1>-->
-      <FetchProfile :account_name="identity.accounts[0].name" symbol="EOS" v-if="identity" />
-      <button class="button" @click="buy">Buy Credits</button>
+     <!-- <FetchProfile :account_name="identity.accounts[0].name" symbol="EOS" v-if="identity" />-->
+
+     <!-- <button class="button" @click="buy">Buy Credits</button>
       <button class="button" @click="withdraw">Sell Credits</button>
-      <button class="button" @click="getBalance">getBalance</button>
+      <button class="button" @click="getBalance">getBalance</button>-->
      <!-- <button class="button" @click="() => bet(100000)">Let's Bet</button>
       <button class="button" @click="luckyBet"> I'm feeling Lucky </button>
       <br>
       <button class="button is-danger" @click="updateAuth">updateAuth</button>
       <button class="button is-danger" @click="signOut">LOGOUT</button>-->
       <!-- <button class="button" @click="getPublicKey">getPublicKey</button> -->
-    </div>
+ <!--   </div>
     <div class="btn-group" v-else>
       <button class="button" @click="requestId">Fetch Scatter ID</button>
-    </div>
+    </div>-->
 
   </div>
 </template>
@@ -27,12 +51,18 @@ import { mapState } from 'vuex'
 import { sha256 } from 'eosjs-ecc'
 import HelloWorld from '@/components/HelloWorld.vue'
 import FetchProfile from '@/components/FetchProfile.vue'
+import Elot from '@/components/Elot.vue'
 import axios from 'axios'
 import { networks } from '../config'
 import randUuid from 'uuid/v4'
 const network = networks['kylin']
 const requiredFields = { accounts: [network] }
-
+import {Header} from "mint-ui"
+import MtHeader from "../../node_modules/mint-ui/packages/header/src/header";
+import MtButton from "../../node_modules/mint-ui/packages/button/src/button";
+import MtNavbar from "../../node_modules/mint-ui/packages/navbar/src/navbar";
+import MtTabContainer from "../../node_modules/mint-ui/packages/tab-container/src/tab-container";
+import MtTabItem from "../../node_modules/mint-ui/packages/tab-item/src/tab-item";
 export default {
   name: 'home',
   computed: {
@@ -42,6 +72,12 @@ export default {
     })
   },
   components: {
+      MtTabItem,
+      MtTabContainer,
+      MtNavbar,
+      MtButton,
+      MtHeader,
+      Elot,
     HelloWorld,
     FetchProfile
   },
@@ -215,7 +251,10 @@ export default {
   max-width: 80%;
 }
   .home{
-    margin:20px;
+    /*margin:20px;*/
+      background: url("../assets/imges/bg.png");
+      width: 100%;
+      height: 800px;
   }
   .btn-group{
     width: 80%;
