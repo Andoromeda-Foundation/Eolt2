@@ -510,7 +510,7 @@
             },
             createHexRandom: function () {
                 var num = '';
-                for (i = 0; i < 64; i++) {
+                for (var i = 0; i < 64; i++) {
                     var tmp = Math.floor(Math.random() * 16);
                     if (tmp > 9) {
                         switch (tmp) {

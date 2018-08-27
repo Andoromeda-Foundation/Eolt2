@@ -1,46 +1,31 @@
 <template>
   <div class="home">
-<!--    <img alt="logo" src="../assets/imges/bg1.png" class="logo" >-->
-      <mt-header title="快来肉点2">
+<!--    <img alt="logo" src="../assets/imges/bg1.jpg" class="logo" >-->
+    <!--  <mt-header title="快来肉点2">
           <router-link to="/" slot="left">
               <mt-button icon="back">返回</mt-button>
           </router-link>
           <mt-button icon="more" slot="right"></mt-button>
-      </mt-header>
+      </mt-header>-->
       <Elot></Elot>
-     <!-- <mt-navbar v-model="selected">
-          <mt-tab-item id="1">首页</mt-tab-item>
-          <mt-tab-item id="2">游戏说明</mt-tab-item>
-          <mt-tab-item id="3">社区</mt-tab-item>
-      </mt-navbar>
 
-      &lt;!&ndash; tab-container &ndash;&gt;
-      <mt-tab-container v-model="selected">
-          <mt-tab-container-item id="1">
-          </mt-tab-container-item>
-          <mt-tab-container-item id="2">
-          </mt-tab-container-item>
-          <mt-tab-container-item id="3">
+    <div class="btn-group" v-if="identity">
+      <h1 class="title"> The Happy EOS Slot </h1>
+      <FetchProfile :account_name="identity.accounts[0].name" symbol="EOS" v-if="identity" />
 
-          </mt-tab-container-item>
-      </mt-tab-container>-->
-  <!--  <div class="btn-group" v-if="identity">-->
-    <!--  <h1 class="title"> The Happy EOS Slot </h1>-->
-     <!-- <FetchProfile :account_name="identity.accounts[0].name" symbol="EOS" v-if="identity" />-->
-
-     <!-- <button class="button" @click="buy">Buy Credits</button>
+      <button class="button" @click="buy">Buy Credits</button>
       <button class="button" @click="withdraw">Sell Credits</button>
-      <button class="button" @click="getBalance">getBalance</button>-->
-     <!-- <button class="button" @click="() => bet(100000)">Let's Bet</button>
-      <button class="button" @click="luckyBet"> I'm feeling Lucky </button>
+      <button class="button" @click="getBalance">getBalance</button>
+   <!--   <button class="button" @click="() => bet(100000)">Let's Bet</button>
+      <button class="button" @click="luckyBet"> I'm feeling Lucky </button>-->
       <br>
       <button class="button is-danger" @click="updateAuth">updateAuth</button>
-      <button class="button is-danger" @click="signOut">LOGOUT</button>-->
-      <!-- <button class="button" @click="getPublicKey">getPublicKey</button> -->
- <!--   </div>
+      <button class="button is-danger" @click="signOut">LOGOUT</button>
+       <button class="button" @click="getPublicKey">getPublicKey</button>
+    </div>
     <div class="btn-group" v-else>
       <button class="button" @click="requestId">Fetch Scatter ID</button>
-    </div>-->
+    </div>
 
   </div>
 </template>
@@ -252,7 +237,7 @@ export default {
 }
   .home{
     /*margin:20px;*/
-      background: url("../assets/imges/bg.png");
+      background: url("../assets/imges/bg1.jpg");
       width: 100%;
       height: 800px;
   }
